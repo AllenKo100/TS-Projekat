@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MovieHub.Models.Watchlist>
+
+@{
+    ViewData["Title"] = "Moje watchliste";
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<h1>Moje watchliste</h1>
+
+<p>
+    <button><a asp-action="Create">Kreiraj novu</a></button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.WatchlistID">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.WatchlistID">Detalji</a> |
+                <a asp-action="Delete" asp-route-id="@item.WatchlistID">Izbriši</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

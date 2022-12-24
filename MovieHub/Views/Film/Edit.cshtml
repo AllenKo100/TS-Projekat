@@ -1,0 +1,101 @@
+﻿@model MovieHub.Models.Film
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Film</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FilmID" />
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ocjena" class="control-label"></label>
+                <input asp-for="Ocjena" class="form-control" />
+                <span asp-validation-for="Ocjena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trailer" class="control-label"></label>
+                <input asp-for="Trailer" class="form-control" />
+                <span asp-validation-for="Trailer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label"></label>
+                <input asp-for="Opis" class="form-control" />
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reziser" class="control-label"></label>
+                <input asp-for="Reziser" class="form-control" />
+                <span asp-validation-for="Reziser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Glumci" class="control-label"></label>
+                <input asp-for="Glumci" class="form-control" />
+                <span asp-validation-for="Glumci" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Poster" class="control-label"></label>
+                <input asp-for="Poster" class="form-control" />
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumIzlaska"></label>
+                <div class="input-group date" data-provide="datepicker">
+                    <input asp-for="DatumIzlaska" class="form-control" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                    <span asp-validation-for="DatumIzlaska" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+                                    List<FilmZanrData> zanrovi = ViewBag.Zanrovi;
+
+                                    foreach (var zanr in zanrovi)
+                                    {
+                                        if (cnt++ % 3 == 0)
+                                        {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="checkbox"
+                                                   name="odabraniZanrovi"
+                                                   value="@zanr.ZanrID"
+                                                   @(Html.Raw(zanr.Dodijeljen ? "checked=\"checked\"" : "")) />
+                                            @zanr.ZanrID @:  @zanr.Naziv
+                                        @:</td>
+                                    }
+                                @:</tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

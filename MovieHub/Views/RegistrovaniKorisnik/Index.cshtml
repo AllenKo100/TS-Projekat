@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MovieHub.Models.RegistrovaniKorisnik>
+
+@{
+    ViewBag.Title = "User Management";
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<h2>User Management</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Izbriši</a>
+            </td>
+        </tr>
+    }
+
+</table>

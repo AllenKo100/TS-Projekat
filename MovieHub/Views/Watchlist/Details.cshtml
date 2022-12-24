@@ -1,0 +1,82 @@
+﻿@model MovieHub.Models.Watchlist
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body class="body">
+    <section class="home">
+        <!-- home bg -->
+        <div class="owl-carousel home__bg">
+            <div class="item home__cover" data-bg="/img/home/home__bg.jpg"></div>
+            <div class="item home__cover" data-bg="/img/home/home__bg2.jpg"></div>
+            <div class="item home__cover" data-bg="/img/home/home__bg3.jpg"></div>
+            <div class="item home__cover" data-bg="/img/home/home__bg4.jpg"></div>
+        </div>
+        <!-- end home bg -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="home__title"> @Html.DisplayFor(model => model.Naziv)</h1>
+                    <button class="home__nav home__nav--prev" type="button">
+                        <i class="icon ion-ios-arrow-round-back"></i>
+                    </button>
+                    <button class="home__nav home__nav--next" type="button">
+                        <i class="icon ion-ios-arrow-round-forward"></i>
+                    </button>
+                </div>
+
+                <div class="col-12">
+                    <div class="owl-carousel home__carousel">
+                        @foreach (var item in Model.Filmovi)
+                        {
+                            <div class="item">
+                                <!-- card -->
+
+                                <div class="card card--big">
+                                    <div class="card__cover">
+                                        <img src=@Html.DisplayFor(modelItem => item.Film.Poster) alt="">
+                                        <a asp-controller="Film" asp-action="Details" asp-route-id="@item.Film.FilmID" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="card__content">
+                                        <h3 class="card__title"><a href="#">@Html.DisplayFor(modelItem => item.Film.Naziv)</a></h3>
+                                        <span class="card__category">
+
+                                            @if (item.Film.FilmZanr != null)
+                                            {
+                                                <a href="#">@item.Film.FilmZanr.ElementAt(0).Zanr.Naziv</a>
+                                            }
+                                        </span>
+                                        <span class="card__rate"><i class="icon ion-ios-star"></i>@Html.DisplayFor(modelItem => item.Film.Ocjena)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.WatchlistID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.mousewheel.min.js"></script>
+    <script src="~/js/jquery.mCustomScrollbar.min.js"></script>
+    <script src="~/js/wNumb.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/plyr.min.js"></script>
+    <script src="~/js/jquery.morelines.min.js"></script>
+    <script src="~/js/photoswipe.min.js"></script>
+    <script src="~/js/photoswipe-ui-default.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+</body>
